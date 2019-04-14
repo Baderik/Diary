@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block buttons %}
+	<a href="/Logout" class="btn">Выйти</a>
+	<a href="/me" class="btn">Профиль</a>
+{% endblock %}
+
+{% block article %}
+	<div id="settins">
+		<h1>Настройки</h1>
+		<form action="" method="post" id="settings" novalidate>
+	        {{ form.hidden_tag() }}
+	        {% for f in form %}
+                {% if f != form.csrf_token %}
+                    {% if f != form.submit %}
+                        <div>
+                            {{ f.label }}<br>
+                            {{ f(value=data[f.name])}}<br>
+                            {% for error in f.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div>{{form.submit()}}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+    	</form>
+	</div>
+{% endblock %}

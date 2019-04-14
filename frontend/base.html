@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" type="text/css" href="../frontend/style.css" />
+		<title>{{title}}</title>
+	</head>
+	<body>
+		<header>
+			<div id="header_logo">
+				<a href="/">
+					<img src="../../../Diary/frontend/image/logo.png" id="logo" title="DuckDiary.com">
+					<span class="site_name">DuckDiary</span>
+				</a>
+			</div>
+			<div id="header_buttons">
+				{% block buttons %}{% endblock %}
+			</div>
+		</header>
+		<aside>
+        	{% block aside %}{% endblock %}
+		</aside>
+		<article>
+        	{% block article %}{% endblock %}
+		</article>
+		<footer>
+			<div id="footer_menu">
+				<a href="/about">О нас</a>
+				<a href="/contacts">Обратная связь</a>
+			</div>
+			<div id="footer_site_name">
+				<a href="/"><span class="site_name">DuckDiary</span></a>
+			</div>
+		</footer>
+	</body>
+</html>

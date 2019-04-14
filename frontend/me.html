@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block buttons %}
+	<a href="/Logout" class="btn">Выйти</a>
+	<a href="/settings" class="btn">Настройки</a>
+{% endblock %}
+
+
+{% block article %}
+	<div id="profile">
+		<h1>{{data['name']}} {{data['name']}}</h1>
+		<img src="/image/user/{{data['login']}}" width="200px" height="200px" id='avatar'>
+		<a href="/clubs?local=me" class="btn">Кружки</a>
+	</div>
+{% endblock %}

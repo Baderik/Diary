@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block buttons %}
+	<a href="/reg" class="btn">Регистрация</a>
+{% endblock %}
+
+{% block article %}
+	<div id="login_reg">
+		<h1>Авторизация</h1>
+    	<form action="" method="post" id="login" novalidate>
+	        {{ form.hidden_tag() }}
+	        {% for f in form %}
+                {% if f != form.csrf_token %}
+                    {% if f != form.submit %}
+                        <div>
+                            {{ f.label }}<br>
+                            {{ f }}<br>
+                            {% for error in f.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div>{{form.submit()}}</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+    	</form>
+	</div>
+{% endblock %}

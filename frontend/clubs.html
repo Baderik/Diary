@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block buttons %}
+	<a href="/me" class="btn">Профиль</a>
+	<a href="/Logout" class="btn">Выход</a>
+{% endblock %}
+
+{% block article %}
+	<div id="clubs">
+		<h1>Кружки</h1>
+		<a href="/clubs/create" class="btn">Создать кружок</a>
+		<a href="/clubs?local={{mode[0]}}" class="btn">{{mode[1]}}</a>
+		<div id="clubs_list">
+			{% if data %}
+				{% for club in data %}
+					<div class="club">
+						<a href="/clubs/{{club['id']}}">
+							<img src="/image/club/{{club['id']}}" width="80px" height="80px">
+							<span>{{club['name']}}</span>
+							<span>{{club['description']}}</span>
+							<span>{{club['clubs_row']}}</span>
+						</a>
+					</div>
+				{% endfor %}
+			{% else %}
+				<span>Тут пусто</span>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
