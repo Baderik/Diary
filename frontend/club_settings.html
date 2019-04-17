@@ -2,7 +2,7 @@
 
 {% block buttons %}
 	<a href="/Logout" class="btn">Выйти</a>
-	<a href="/Del" class="btn">Удалить аккаунт</a>
+    <a href="/Del/group/{{data['id']}}" class="btn">Удалить кружок</a>
 {% endblock %}
 
 {% block article %}
@@ -15,10 +15,15 @@
                     {% if f != form.submit %}
                         <div>
                             {{ f.label }}<br>
-                            {% if f != f.image %}
-                                {{ f(value=data[f.name])}}<br>
+                            <!-- {{ f.type }} -->
+                            {% if f.type == form.monday.type %}
+                                <!-- {{f.name, 'Понедельник'}} -->
+                           <!-- {data['Понедельник']}}
+                                {{data}} -->
+                                <!-- {{data[f.name]}} -->
+                                {{ f(checked=data[f.name])}}<br />
                             {% else %}
-                                {{ f }}
+                                {{ f(value=data[f.name])}}<br />
                             {% endif %}
                             {% for error in f.errors %}
                                 <div class="alert alert-danger" role="alert">

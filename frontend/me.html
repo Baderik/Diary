@@ -1,15 +1,29 @@
-{% extends "base.html" %}
+{% extends "base_for_user.html" %}
 
 {% block buttons %}
 	<a href="/Logout" class="btn">Выйти</a>
 	<a href="/settings" class="btn">Настройки</a>
 {% endblock %}
 
-
 {% block article %}
 	<div id="profile">
-		<h1>{{data['name']}} {{data['name']}}</h1>
+		<h1>{{data['name']}} {{data['surname']}}</h1>
 		<img src="/image/user/{{data['login']}}" width="200px" height="200px" id='avatar'>
-		<a href="/clubs?local=me" class="btn">Кружки</a>
+		<div id="week">
+		{% for day in week_grp %}
+			<div class="day">
+				<p>{{ week[day] }}</p>
+				<br />
+				{% if week_grp[day] %}
+					{% for grp in week_grp[day] %}
+						<p>{{grp}}</p>
+					{% endfor %}
+				{% else %}
+					<p>День свободен</p>
+				{% endif %}
+			</div>
+		{% endfor %}			
+		</div>
+
 	</div>
 {% endblock %}

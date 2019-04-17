@@ -34,9 +34,11 @@ header {
 
 article {
 	float: left;
-	width: 100%;
-	min-height: 85.5%;
-		
+	width: 90%;
+	min-height: 81.5%;
+	color: #507A80;
+	padding: 0 4%;
+	font-size: 1.2em
 }
 
 article > div#clubs {
@@ -83,10 +85,6 @@ div#header_logo {
 div#header_logo span {
 	position: relative;
 	top: -10px;
-}
-
-div#footer_menu {
-
 }
 
 div#footer_site_name {
@@ -143,7 +141,66 @@ input[type=submit] {
 img#avatar {
 	border-style: solid;
 	border-color: silver;
+	background-color: white;
+	border-radius: 5px;
 }
+
 div.club  span {
 	color: #ffcc00;
+	position: relative;
+	top: -30px;
+}
+
+div#settings {
+	text-align: center;
+}
+
+form#settings {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 1em;
+	justify-items: center;
+}
+
+div#week {
+	width: 100%;
+	margin: 20px 0px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-gap: 1em;
+	justify-items: center;
+	background-color: #CDC5C2;
+	border-style: solid;
+	border-color: white;
+	min-height: 300px;
+	padding: 10px 10px;
+	border-radius: 10px;
+}
+
+div.day {
+	width: 80%;
+	text-align: center;
+	background-color: #CDC5C2;
+	border-style: solid;
+	border-color: white;
+	height: 300px;
+	overflow: scroll;
+}
+
+div.info {
+	color: white;
+	font-size: 1.7em;
+	margin: 64px 0px;
+}
+
+div#contacts {
+	margin: 378.5px 0px;
+}
+
+p span.site_name {
+	color: #d95b48;
+}
+
+div#index {
+	margin-bottom: 37.4%;
 }

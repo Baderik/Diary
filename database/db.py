@@ -42,6 +42,7 @@ class UsersTable:
         self.connection.commit()
 
     def insert(self, login, email, password, name, surname, age, sex):
+        # print('User:\n', login, email, password, name, surname, age, sex)
         cursor = self.connection.cursor()
         cursor.execute('''INSERT INTO users 
                           (login, email, password_hash, name, surname, age, sex) 
@@ -140,6 +141,7 @@ class ClubsTable:
         self.connection.commit()
 
     def insert(self, login, name, description, address, dates, image):
+        # print('Club:\n', login, name, description, address, dates, image)
         cursor = self.connection.cursor()
 
         cursor.execute('''INSERT INTO clubs 
@@ -150,11 +152,27 @@ class ClubsTable:
         cursor.close()
         self.connection.commit()
 
+    def update(self, club_id, name, description, dates, image):
+        headers = ['name', 'description', 'dates']
+        data = [name, description, dates]
+
+        if image:
+            headers.append('image')
+            data.append(image)
+
+        cursor = self.connection.cursor()
+        cursor.execute(f'''UPDATE clubs
+                           SET {" = ?, ".join(headers) + '= ?'}
+                           WHERE id = ?''', data + [str(club_id)])
+
+        cursor.close()
+        self.connection.commit()
+
     def get(self, club_id, headers=None):
         cursor = self.connection.cursor()
 
         if headers is None:
-            headers = ('login', 'name', 'description', 'address', 'dates', 'clubs_row')
+            headers = ('id', 'login', 'name', 'description', 'address', 'dates', 'clubs_row')
 
         cursor.execute(f'''SELECT {", ".join(headers)}
                                   FROM clubs WHERE id = ?''', (str(club_id),))
@@ -176,13 +194,15 @@ class ClubsTable:
             row = [{headers[i]: obj[i] for i in range(len(headers))} for obj in row]
         return row
 
-    def get_for_user(self, user_login):
+    def get_for_user(self, user_login, headers=None):
         user_login += ','
+        if headers is None:
+            headers = ('id', 'name', 'description', 'clubs_row')
         data = self.get_all(('id', 'membership'))
 
         if data:
             # print(data)
-            data = [self.get(grp['id'], ('id', 'name', 'description', 'clubs_row'))
+            data = [self.get(grp['id'], headers)
                     for grp in data if user_login in grp['membership']]
             # print(data)
         return data
@@ -202,7 +222,7 @@ class ClubsTable:
 
             cursor.execute('''UPDATE clubs
                               SET membership = ?, clubs_row = ?
-                              WHERE club_id = ?''', (membership, clubs_row, str(club_id)))
+                              WHERE id = ?''', (membership, clubs_row, str(club_id)))
 
         cursor.close()
         self.connection.commit()
@@ -216,13 +236,13 @@ class ClubsTable:
             membership = ''
 
         cursor = self.connection.cursor()
-        if user_login not in membership:
-            membership -= user_login
+        if user_login in membership:
+            membership = membership.replace(user_login, '')
             clubs_row -= 1
 
             cursor.execute('''UPDATE clubs
                               SET membership = ?, clubs_row = ?
-                              WHERE club_id = ?''', (membership, clubs_row, str(club_id)))
+                              WHERE id = ?''', (membership, clubs_row, str(club_id)))
 
         cursor.close()
         self.connection.commit()

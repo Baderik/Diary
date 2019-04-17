@@ -1,0 +1,29 @@
+{% extends "base_for_user.html" %}
+
+{% block buttons %}
+	<a href="/Logout" class="btn">Выход</a>
+	{% if user == data['login'] %}
+		<a href="/clubs/{{data['id']}}/settings" class="btn">Настройки</a>
+	{% endif %}
+{% endblock %}
+
+{% block article %}
+	<div id="club">
+		<h1>{{data['name']}}</h1>
+		<div id="info">
+			<p>Название кружка: {{data['description']}}</p>
+			<p>Создатель: {{data['admin']}}</p>
+			<p>Количество участников: {{data['clubs_row']}}</p>
+			<p>Дни учёбы:</p>
+			{% if data['dates'] %}
+				<p>{{data['dates']}}</p>
+			{% else %}
+				<p>У преподователя закончился кофе, мы не работаем</p>
+			{% endif %}
+		</div>
+		<form action="" method="post" id="club" novalidate>
+	        {{ form.hidden_tag() }}
+            <div>{{form.submit(value=member)}}</div>
+    	</form>
+	</div>
+{% endblock %}
